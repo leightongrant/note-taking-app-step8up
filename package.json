@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "echo \"Error: no test specified\" && exit 1"
+		"dev": "PORT=5000 node --watch server.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -17,5 +17,13 @@
 	"bugs": {
 		"url": "https://github.com/leightongrant/note-taking-app-step8up/issues"
 	},
-	"homepage": "https://github.com/leightongrant/note-taking-app-step8up#readme"
+	"homepage": "https://github.com/leightongrant/note-taking-app-step8up#readme",
+	"dependencies": {
+		"express": "^5.1.0"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.5",
+		"@types/node": "^24.9.2",
+		"typescript": "^5.9.3"
+	}
 }
