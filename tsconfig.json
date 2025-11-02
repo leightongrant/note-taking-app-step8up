@@ -15,9 +15,11 @@
 		"noUncheckedIndexedAccess": true,
 		"noImplicitOverride": true,
 		// We are not transpiling, so preserve our source code and do not emit files
-		"module": "preserve",
+		"module": "nodenext",
 		"noEmit": true,
-		"lib": ["ESNext"]
+		"lib": ["ESNext"],
+		"rewriteRelativeImportExtensions": true,
+		"erasableSyntaxOnly": true
 	},
 	// Include the necessary files for your project
 	"include": ["**/*.ts"],
