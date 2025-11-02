@@ -19,6 +19,8 @@
 	},
 	"homepage": "https://github.com/leightongrant/note-taking-app-step8up#readme",
 	"dependencies": {
+		"@types/cors": "^2.8.19",
+		"cors": "^2.8.5",
 		"express": "^5.1.0"
 	},
 	"devDependencies": {
