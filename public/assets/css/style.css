@@ -47,3 +47,7 @@ nav {
 .notes-list {
 	border-right: 1px solid var(--border-color);
 }
+
+.note-item:hover {
+	cursor: pointer;
+}
