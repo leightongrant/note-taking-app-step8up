@@ -1,8 +1,58 @@
 const myNotes = document.querySelector('.my-notes')
 const noteView = document.querySelector('.note-view')
+const newNote = document.querySelector('.new-note')
 
-const url = 'http://localhost:5000/api/notes'
-const getNotes = async (url) => {
+const newNoteContent = `<div class="h-100 new-note-wrapper">
+									<div class="new-note-header">
+										<h2 class="new-note-title">Untitled</h2>
+										<button
+											type="button"
+											class="btn btn-md btn-success"
+										>
+											Save</button
+										><button
+											type="button"
+											class="btn btn-md btn-outline-danger"
+										>
+											Delete
+										</button>
+									</div>
+									<div class="border border-1 rounded-3 p-3">
+										<div class="mb-3">
+											<label
+												for="note-title"
+												class="form-label fw-semibold fs-4"
+												>Title</label
+											>
+											<input
+												type="email"
+												class="form-control"
+												id="note-title"
+												placeholder="Untitled"
+											/>
+										</div>
+										<div class="mb-3">
+											<label
+												for="note-text"
+												class="form-label fw-semibold fs-4"
+												>Note Text</label
+											>
+											<textarea
+												class="form-control"
+												id="note-text"
+												rows="16"
+											></textarea>
+										</div>
+									</div>
+								</div>`
+
+newNote.addEventListener('click', () => {
+	noteView.innerHTML = ''
+	noteView.innerHTML = newNoteContent
+})
+
+const getNotes = async () => {
+	const url = 'http://localhost:5000/api/notes'
 	try {
 		const response = await fetch(url)
 		if (response.ok) {
@@ -59,4 +109,9 @@ const renderNote = (note) => {
 	noteView.innerHTML = currentNote
 }
 
-getNotes(url)
+const main = () => {
+	getNotes()
+	noteView.innerHTML = newNoteContent
+}
+
+main()

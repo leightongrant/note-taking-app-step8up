@@ -51,3 +51,15 @@ nav {
 .note-item:hover {
 	cursor: pointer;
 }
+
+.new-note-wrapper {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	gap: 1rem;
+}
+
+.new-note-header {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	gap: 1rem;
+}
