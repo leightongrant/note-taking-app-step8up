@@ -66,12 +66,12 @@ const renderNotes = (data) => {
 	data.forEach((item) => {
 		const { title, noteText, id } = item
 		return (listGroupItems += `<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
-															<div class="d-flex w-100 justify-content-between">
-																<h5 class="mb-1">${title}</h5>																
-															</div>
-    													<p class="mb-1 text-truncate" style="max-width: 200px;">${noteText}</p>
-    													<small>3 days ago</small>
-  												</div>`)
+																	<div><small>3 days ago</small></div>
+																	<div class="d-flex w-100 justify-content-between">																	  
+																		<h5 class="mb-1">${title}</h5>																
+															    </div>
+    													    <p class="mb-1 text-truncate" style="max-width: 200px;">${noteText}</p>    													    
+  														</div>`)
 	})
 	myNotes.innerHTML = listGroupItems
 	const noteItems = document.querySelectorAll('.note-item')
@@ -92,12 +92,41 @@ const getNote = async (id) => {
 	if (response.ok) {
 		const note = await response.json()
 		renderNote(note)
+		handleDelete(note)
+		handleEdit(note)
 	}
 }
 
+const handleEdit = (note) => {
+	const editButton = document.querySelector('.edit-button')
+	editButton.addEventListener('click', (e) => {
+		console.log(note.id)
+	})
+}
+const handleDelete = (note) => {
+	const deleteButton = document.querySelector('.delete-button')
+	deleteButton.addEventListener('click', async () => {
+		const url = `http://localhost:5000/api/notes/${note.id}`
+		try {
+			await fetch(url, { method: 'DELETE' })
+			noteView.innerHTML = newNoteContent
+			getNotes()
+		} catch (error) {
+			console.log(error.message)
+		}
+	})
+}
+
 const renderNote = (note) => {
-	const { title, noteText } = note
-	const currentNote = `<h2>${title}</h2>
+	const { title, noteText, id } = note
+	const currentNote = `									 
+											 <div class="d-flex justify-content-between">
+											    <h2>${title}</h2>
+													<div class="d-flex gap-1">																	  
+														<button class="btn btn-info btn-sm edit-button">Edit</button>
+														<button class="btn btn-danger btn-sm delete-button">Delete</button>
+													</div>
+											 </div>
 											 <p>${noteText}</p>
 											`
 
