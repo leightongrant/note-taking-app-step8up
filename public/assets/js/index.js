@@ -2,45 +2,48 @@ const myNotes = document.querySelector('.my-notes')
 const noteView = document.querySelector('.note-view')
 const newNote = document.querySelector('.new-note')
 
-const newNoteContent = `<div class="h-100 new-note-wrapper">
-
-													<div class="new-note-header d-flex align-items-center">														
-															<label
-																	for="note-title"
-																	class="form-label fw-semibold fs-4 d-none"
-															>Title</label
-															>
-															<input
-																type="text"
-																class="form-control fs-3 fw-bolder flex-grow-1"
-																id="note-title-input"
-																placeholder="Untitled"
-															/>															
-															<button
-																type="button"
-																class="btn btn-md btn-success save-button flex-grow-0"
-															>
-																Save</button
-															>
-													</div>
-													<div class="border border-1 rounded-3 p-3">															
-															<label
-																for="note-text"
-																class="form-label fw-semibold fs-4 d-none"
-																>Note Text</label
-															>
-															<textarea
-																class="form-control fs-4"
-																id="note-text"
-																placeholder="Start writing your note..."
-																rows="16"
-															></textarea>
-													</div>													
-											  </div>`
+const noteForm = (title = '', noteText = '') => {
+	return `<div class="h-100 new-note-wrapper">
+						<div class="new-note-header d-flex align-items-center">														
+								<label
+										for="note-title"
+										class="form-label fw-semibold fs-4 d-none"
+								>Title</label
+								>
+								<input
+									type="text"
+									class="form-control fs-3 fw-bolder flex-grow-1"
+									id="note-title-input"
+									placeholder="Untitled"
+									value="${title}"
+								/>															
+								<button
+									type="button"
+									class="btn btn-md btn-success save-button flex-grow-0"
+								>
+									Save</button
+								>
+						</div>
+						<div class="border border-1 rounded-3 p-3">															
+								<label
+									for="note-text"
+									class="form-label fw-semibold fs-4 d-none"
+									>Note Text</label
+								>
+								<textarea
+									class="form-control fs-4"
+									id="note-text"
+									placeholder="Start writing your note..."
+									rows="16"
+									
+								>${noteText}</textarea>
+						</div>													
+					</div>`
+}
 
 newNote.addEventListener('click', () => {
 	noteView.innerHTML = ''
-	noteView.innerHTML = newNoteContent
+	noteView.innerHTML = noteForm()
 	const noteTitleInput = document.querySelector('#note-title-input')
 	noteTitleInput.focus()
 })
@@ -97,17 +100,22 @@ const getNote = async (id) => {
 
 const handleEdit = (note) => {
 	const editButton = document.querySelector('.edit-button')
-	editButton.addEventListener('click', (e) => {
-		console.log(note.id)
+	editButton.addEventListener('click', () => {
+		const { title, noteText, id } = note
+		noteView.innerHTML = noteForm(title, noteText)
+		const noteTitleInput = document.querySelector('#note-title-input')
+		noteTitleInput.focus()
+		getNewNote('put', id)
 	})
 }
 const handleDelete = (note) => {
+	const { id } = note
 	const deleteButton = document.querySelector('.delete-button')
 	deleteButton.addEventListener('click', async () => {
-		const url = `http://localhost:5000/api/notes/${note.id}`
+		const url = `http://localhost:5000/api/notes/${id}`
 		try {
 			await fetch(url, { method: 'DELETE' })
-			noteView.innerHTML = newNoteContent
+			noteView.innerHTML = noteForm()
 			getNotes()
 		} catch (error) {
 			console.log(error.message)
@@ -116,22 +124,22 @@ const handleDelete = (note) => {
 }
 
 const renderNote = (note) => {
-	const { title, noteText, id } = note
+	const { title, noteText } = note
 	const currentNote = `									 
 											 <div class="d-flex justify-content-between">
-											    <h2>${title}</h2>
+											    <h2 class="mb-3">${title}</h2>
 													<div class="d-flex gap-1">																	  
 														<button class="btn btn-info btn-sm edit-button">Edit</button>
 														<button class="btn btn-danger btn-sm delete-button">Delete</button>
 													</div>
 											 </div>
-											 <p>${noteText}</p>
+											 <p class="fs-5">${noteText}</p>
 											`
 
 	noteView.innerHTML = currentNote
 }
 
-const getNewNote = () => {
+const getNewNote = (operation = 'create', id) => {
 	const noteTitleInput = document.querySelector('#note-title-input')
 	const noteText = document.querySelector('#note-text')
 	const saveButton = document.querySelector('.save-button')
@@ -142,22 +150,35 @@ const getNewNote = () => {
 			return
 		}
 		const newNote = { title: noteTitleInput.value, noteText: noteText.value }
-		saveNote(newNote)
+		handleSave(newNote, operation, id)
 	})
 }
 
-const saveNote = async (note) => {
-	const url = `http://localhost:5000/api/notes`
-	try {
-		await fetch(url, { method: 'POST', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
-	} catch (error) {
-		console.log(error)
+const handleSave = async (note, operation, id) => {
+	if (operation === 'create') {
+		const url = `http://localhost:5000/api/notes`
+		try {
+			await fetch(url, { method: 'POST', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
+			getNotes()
+			noteView.innerHTML = noteForm()
+		} catch (error) {
+			console.log(error)
+		}
+	} else {
+		const url = `http://localhost:5000/api/notes/${id}`
+		try {
+			await fetch(url, { method: 'PUT', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
+			getNotes()
+			noteView.innerHTML = noteForm()
+		} catch (error) {
+			console.log(error)
+		}
 	}
 }
 
 const main = () => {
 	getNotes()
-	noteView.innerHTML = newNoteContent
+	noteView.innerHTML = noteForm()
 	getNewNote()
 }
 
