@@ -63,3 +63,15 @@ nav {
 	grid-template-columns: 1fr auto auto;
 	gap: 1rem;
 }
+#note-title-input,
+#note-text {
+	border: none;
+	border-color: transparent;
+	background-color: transparent;
+}
+#note-title-input:focus,
+#note-text:focus {
+	border-color: transparent;
+	box-shadow: none;
+	background-color: transparent;
+}
