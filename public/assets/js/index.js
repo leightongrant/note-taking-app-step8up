@@ -3,44 +3,40 @@ const noteView = document.querySelector('.note-view')
 const newNote = document.querySelector('.new-note')
 
 const newNoteContent = `<div class="h-100 new-note-wrapper">
-									<div class="new-note-header">
-										<h2 class="new-note-title">Untitled</h2>
-										<button
-											type="button"
-											class="btn btn-md btn-success save-button"
-										>
-											Save</button
-										>
-									</div>
-									<div class="border border-1 rounded-3 p-3">
-										<div class="mb-3">
-											<label
-												for="note-title"
-												class="form-label fw-semibold fs-4 d-none"
-												>Title</label
-											>
-											<input
-												type="text"
-												class="form-control"
-												id="note-title-input"
-												placeholder="Untitled"
-											/>
-										</div>
-										<div class="mb-3">
-											<label
-												for="note-text"
-												class="form-label fw-semibold fs-4 d-none"
-												>Note Text</label
-											>
-											<textarea
-												class="form-control"
-												id="note-text"
-												placeholder="Start writing your note..."
-												rows="16"
-											></textarea>
-										</div>
-									</div>
-								</div>`
+
+													<div class="new-note-header d-flex align-items-center">														
+															<label
+																	for="note-title"
+																	class="form-label fw-semibold fs-4 d-none"
+															>Title</label
+															>
+															<input
+																type="text"
+																class="form-control fs-3 fw-bolder flex-grow-1"
+																id="note-title-input"
+																placeholder="Untitled"
+															/>															
+															<button
+																type="button"
+																class="btn btn-md btn-success save-button flex-grow-0"
+															>
+																Save</button
+															>
+													</div>
+													<div class="border border-1 rounded-3 p-3">															
+															<label
+																for="note-text"
+																class="form-label fw-semibold fs-4 d-none"
+																>Note Text</label
+															>
+															<textarea
+																class="form-control fs-4"
+																id="note-text"
+																placeholder="Start writing your note..."
+																rows="16"
+															></textarea>
+													</div>													
+											  </div>`
 
 newNote.addEventListener('click', () => {
 	noteView.innerHTML = ''
@@ -135,12 +131,9 @@ const renderNote = (note) => {
 
 const getNewNote = () => {
 	const noteTitleInput = document.querySelector('#note-title-input')
-	const newNoteTitle = document.querySelector('.new-note-title')
 	const noteText = document.querySelector('#note-text')
 	const saveButton = document.querySelector('.save-button')
-	noteTitleInput.addEventListener('keyup', (e) => {
-		newNoteTitle.textContent = e.target.value
-	})
+
 	saveButton.addEventListener('click', (e) => {
 		if (noteTitleInput.value.length === 0 || noteText.value.length === 0) {
 			console.log('No new note to save')
