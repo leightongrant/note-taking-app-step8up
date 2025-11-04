@@ -21,8 +21,11 @@
 	"homepage": "https://github.com/leightongrant/note-taking-app-step8up#readme",
 	"dependencies": {
 		"@types/cors": "^2.8.19",
+		"@types/nanoid": "^2.1.0",
 		"cors": "^2.8.5",
-		"express": "^5.1.0"
+		"express": "^5.1.0",
+		"joi": "^18.0.1",
+		"nanoid": "^5.1.6"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.5",

@@ -71,11 +71,10 @@ const renderNotes = (data) => {
 		const { title, noteText, id } = item
 		return (listGroupItems += `<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
 															<div class="d-flex w-100 justify-content-between">
-																<h5 class="mb-1">${title}</h5>
-																<small>3 days ago</small>
+																<h5 class="mb-1">${title}</h5>																
 															</div>
     													<p class="mb-1 text-truncate" style="max-width: 200px;">${noteText}</p>
-    													<small>And some small print.</small>
+    													<small>3 days ago</small>
   												</div>`)
 	})
 	myNotes.innerHTML = listGroupItems
