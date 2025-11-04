@@ -41,6 +41,8 @@ const newNoteContent = `<div class="h-100 new-note-wrapper">
 newNote.addEventListener('click', () => {
 	noteView.innerHTML = ''
 	noteView.innerHTML = newNoteContent
+	const noteTitleInput = document.querySelector('#note-title-input')
+	noteTitleInput.focus()
 })
 
 const getNotes = async () => {
