@@ -67,22 +67,25 @@ const renderNotes = (data) => {
 	data.forEach((item) => {
 		const { title, noteText, id } = item
 		return (listGroupItems += `<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
-																	<div><small>3 days ago</small></div>
-																	<div class="d-flex w-100 justify-content-between">																	  
-																		<h5 class="mb-1">${title}</h5>																
-															    </div>
-    													    <p class="mb-1 text-truncate" style="max-width: 200px;">${noteText}</p>    													    
-  														</div>`)
+																	<small data-name="date">3 days ago</small>																																  
+																	<h5 class="mb-1" data-name="title">${title}</h5>																		
+    													    <p class="mb-1 text-truncate" style="max-width: 200px;" data-name="note-text">${noteText}</p>    													    
+  														 </div>`)
 	})
 	myNotes.innerHTML = listGroupItems
 	const noteItems = document.querySelectorAll('.note-item')
 	noteItems.forEach((item) => {
 		item.addEventListener('click', (e) => {
-			let id = e.target.id
-			if (!id) {
-				id = e.target.parentElement.id || e.target.parentElement.parentElement.id
+			let target = e.target
+			if (e.target.dataset.name === 'title' || e.target.dataset.name === 'date' || e.target.dataset.name === 'note-text') {
+				target = e.target.parentElement
 			}
-			getNote(id)
+			const childNodes = target.parentNode.childNodes
+			childNodes.forEach((node) => {
+				node.classList.remove('active')
+			})
+			target.classList.add('active')
+			getNote(target.id)
 		})
 	})
 }
