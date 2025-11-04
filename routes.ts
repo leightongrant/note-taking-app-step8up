@@ -150,3 +150,24 @@ router.put('/notes/:id', async (req: Request, res: Response) => {
 		res.status(400).json(error)
 	}
 })
+
+// Delete a note
+router.delete('/notes/:id', async (req: Request, res: Response) => {
+	const { id } = req.params
+	try {
+		let notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
+		if (!notesData) {
+			res.status(404).json({ message: 'No data found' })
+			return
+		}
+
+		let notes = JSON.parse(notesData) as NotesData[]
+
+		notes = notes.filter((note) => note.id !== id)
+
+		await writeFile('./notes.json', JSON.stringify(notes))
+		res.status(200).json({ message: `Note with id(${id}) deleted` })
+	} catch (error) {
+		res.status(400).json(error)
+	}
+})
