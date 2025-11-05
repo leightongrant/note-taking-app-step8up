@@ -1,9 +1,10 @@
 :root {
-	--primary-color: #0a6a93;
-	--primary-color-hover: #0a6a93cc;
+	--primary-color: #0a9a93;
+	--primary-color-hover: #0a9a93cc;
 	--secondary-color: #f2ae3d;
 	--background-color: #f0f7f9;
 	--delete-color: #e7515d;
+	--delete-color-hover: #e7515dcc;
 	--dark-text: #525252;
 	--light-text: #dee2e6;
 	--icon-color: #525252;
@@ -27,6 +28,10 @@ nav {
 	gap: 1rem;
 }
 
+button {
+	height: fit-content;
+}
+
 button.new-note,
 button.new-note:active {
 	background-color: var(--primary-color) !important;
@@ -37,6 +42,20 @@ button.new-note:active {
 button.new-note:hover {
 	background-color: var(--primary-color-hover) !important;
 	border-color: transparent;
+}
+.btn-delete {
+	background-color: var(--delete-color);
+}
+.btn-delete:hover {
+	background-color: var(--delete-color-hover);
+}
+
+.new-note-header > input {
+	width: auto !important;
+}
+.list-group-item.active {
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
 }
 .page-wrapper {
 	display: grid;
@@ -95,8 +114,4 @@ button.new-note:hover {
 
 #note-title-input::placeholder {
 	color: var(--light-text);
-}
-
-.save-button {
-	height: fit-content;
 }

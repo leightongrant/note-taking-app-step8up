@@ -4,12 +4,12 @@ const newNote = document.querySelector('.new-note')
 
 const noteForm = (title = '', noteText = '') => {
 	return `<div class="h-100 new-note-wrapper">
-						<div class="new-note-header d-flex align-items-center">														
+						<div class="new-note-header d-flex align-items-center">
 								<label
-										for="note-title"
+										for="note-title-input"
 										class="form-label fw-semibold fs-4 d-none"
 								>Title</label
-								>
+								>		
 								<input
 									type="text"
 									class="form-control fs-3 fw-bolder flex-grow-1"
@@ -21,7 +21,7 @@ const noteForm = (title = '', noteText = '') => {
 									type="button"
 									class="btn btn-md btn-success save-button flex-grow-0"
 								>
-									Save</button
+									<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M840-680v560H120v-720h560l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/></svg> Save</button
 								>
 						</div>
 						<div class="border border-1 rounded-3 p-3">															
@@ -132,8 +132,8 @@ const renderNote = (note) => {
 											 <div class="d-flex justify-content-between">
 											    <h2 class="mb-3">${title}</h2>
 													<div class="d-flex gap-1">																	  
-														<button class="btn btn-info btn-sm edit-button">Edit</button>
-														<button class="btn btn-danger btn-sm delete-button">Delete</button>
+														<button class="btn btn-info btn-sm edit-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M160-400v-80h280v80H160Zm0-160v-80h440v80H160Zm0-160v-80h440v80H160Zm360 560v-123l263-262 123 122-263 263H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"/></svg></button>
+														<button class="btn btn-delete btn-sm delete-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M200-120v-600h-40v-80h200v-40h240v40h200v80h-40v600H200Zm80-80h400v-520H280v520Zm80-80h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></button>
 													</div>
 											 </div>
 											 <p class="fs-5">${noteText}</p>
