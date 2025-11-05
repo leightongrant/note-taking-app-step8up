@@ -46,8 +46,6 @@ const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 		const noteTitleInput = document.querySelector('#note-title-input')
 		const noteText = document.querySelector('#note-text')
 
-		console.log(newNoteWrapper.dataset.crudOp)
-
 		if (noteTitleInput.value.length === 0 || noteText.value.length === 0) {
 			console.log('No new note to save')
 			return
@@ -55,7 +53,6 @@ const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 		const newNote = { title: noteTitleInput.value, noteText: noteText.value }
 
 		handleSave(newNote, newNoteWrapper.dataset.crudOp, id)
-		//console.log(newNote)
 
 		noteTitleInput.value = ''
 		noteText.value = ''
@@ -79,6 +76,20 @@ const renderNote = (note) => {
 		`
 
 	noteView.innerHTML = currentNote
+
+	const deleteButton = document.querySelector('.delete-button')
+	deleteButton.addEventListener('click', () => {
+		confirmModal.show()
+	})
+
+	const confirm = document.querySelector('.confirm')
+
+	const confirmDelete = () => {
+		handleDelete(note)
+		confirmModal.hide()
+		confirm.removeEventListener('click', confirmDelete)
+	}
+	confirm.addEventListener('click', confirmDelete)
 }
 
 const getNotes = async () => {
@@ -96,6 +107,7 @@ const getNotes = async () => {
 
 newNote.addEventListener('click', () => {
 	renderNoteForm()
+	getNotes()
 	const noteTitleInput = document.querySelector('#note-title-input')
 	noteTitleInput.focus()
 })
@@ -137,17 +149,6 @@ const getNote = async (id) => {
 
 		renderNote(note)
 		handleEdit(note)
-
-		const deleteButton = document.querySelector('.delete-button')
-		deleteButton.addEventListener('click', () => {
-			confirmModal.show()
-		})
-
-		const confirm = document.querySelector('.confirm')
-		confirm.addEventListener('click', (e) => {
-			handleDelete(note)
-			confirmModal.hide()
-		})
 	}
 }
 
@@ -167,8 +168,8 @@ const handleDelete = async (note) => {
 
 	try {
 		await fetch(url, { method: 'DELETE' })
-		//noteView.innerHTML = noteForm()
 		getNotes()
+		renderNoteForm()
 	} catch (error) {
 		console.log(error.message)
 	}
