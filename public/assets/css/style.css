@@ -84,6 +84,19 @@ button.new-note:hover {
 	cursor: pointer;
 }
 
+.notes-wrapper {
+	max-height: 704px;
+	overflow: hidden;
+}
+
+.notes-list {
+	max-height: 704px;
+}
+
+.my-notes {
+	max-height: 94%;
+}
+
 .new-note-wrapper {
 	display: grid;
 	grid-template-rows: auto 1fr;
@@ -107,7 +120,9 @@ button.new-note:hover {
 	box-shadow: none;
 	background-color: transparent;
 }
-
+#note-text {
+	height: 100%;
+}
 #note-text::placeholder {
 	color: var(--light-text);
 }
