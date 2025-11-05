@@ -1,6 +1,7 @@
 const myNotes = document.querySelector('.my-notes')
 const noteView = document.querySelector('.note-view')
 const newNote = document.querySelector('.new-note')
+const confirmModal = new bootstrap.Modal('#confirmModal', {})
 
 const noteForm = (title = '', noteText = '') => {
 	return `<div class="h-100 new-note-wrapper">
@@ -95,9 +96,20 @@ const getNote = async (id) => {
 	const response = await fetch(url)
 	if (response.ok) {
 		const note = await response.json()
+
 		renderNote(note)
-		handleDelete(note)
 		handleEdit(note)
+
+		const deleteButton = document.querySelector('.delete-button')
+		deleteButton.addEventListener('click', () => {
+			confirmModal.show()
+		})
+
+		const confirm = document.querySelector('.confirm')
+		confirm.addEventListener('click', (e) => {
+			handleDelete(note)
+			confirmModal.hide()
+		})
 	}
 }
 
@@ -111,19 +123,17 @@ const handleEdit = (note) => {
 		getNewNote('put', id)
 	})
 }
-const handleDelete = (note) => {
+const handleDelete = async (note) => {
 	const { id } = note
-	const deleteButton = document.querySelector('.delete-button')
-	deleteButton.addEventListener('click', async () => {
-		const url = `http://localhost:5000/api/notes/${id}`
-		try {
-			await fetch(url, { method: 'DELETE' })
-			noteView.innerHTML = noteForm()
-			getNotes()
-		} catch (error) {
-			console.log(error.message)
-		}
-	})
+	const url = `http://localhost:5000/api/notes/${id}`
+
+	try {
+		await fetch(url, { method: 'DELETE' })
+		noteView.innerHTML = noteForm()
+		getNotes()
+	} catch (error) {
+		console.log(error.message)
+	}
 }
 
 const renderNote = (note) => {
