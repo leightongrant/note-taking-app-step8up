@@ -38,7 +38,7 @@ const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 							placeholder="Start writing your note..."									
 						>${noteText}</textarea>
 				</div>													
-			</div>`
+			</div>`.trim()
 
 	const saveButton = document.querySelector('.save-button')
 	saveButton.addEventListener('click', () => {
@@ -73,7 +73,7 @@ const renderNote = (note) => {
 				</div>
 			</div>
 			<p class="fs-5">${noteText}</p>
-		`
+		`.trim()
 
 	noteView.innerHTML = currentNote
 
@@ -118,12 +118,12 @@ const renderNotes = (data) => {
 	let listGroupItems = ''
 	data.forEach((item) => {
 		const { title, noteText, id, updatedAt } = item
-		return (listGroupItems += `<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
-																																																	  
-																	<h5 class="mb-1 text-truncate fw-bolder" data-name="title">${title}</h5>																		
-    													    <p class="mb-1 text-truncate fs-6 fw-lighter" data-name="note-text">${noteText}</p>
-															<small data-name="date" class="badge text-bg-light float-end">${dateFns.formatDistanceToNowStrict(updatedAt, { addSuffix: true })}</small>    													    
-  														 </div>`)
+		return (listGroupItems += `
+			<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
+				<h5 class="mb-1 text-truncate fw-bolder" data-name="title">${title}</h5>
+				<p class="mb-1 text-truncate fs-6 fw-lighter" data-name="note-text">${noteText}</p>
+				<small data-name="date" class="badge text-bg-light float-end">${dateFns.formatDistanceToNowStrict(updatedAt, { addSuffix: true })}</small>
+			</div>`.trim())
 	})
 	myNotes.innerHTML = listGroupItems
 	const noteItems = document.querySelectorAll('.note-item')
@@ -153,6 +153,30 @@ const getNote = async (id) => {
 		handleEdit(note)
 	}
 }
+
+const renderMostRecentNote = async () => {
+	const url = `http://localhost:5000/api/notes/`
+	const response = await fetch(url)
+	let mostRecentNote = null
+	if (response.ok) {
+		const data = await response.json()
+		mostRecentNote = data[data.length - 1]
+		renderNote(mostRecentNote)
+		handleEdit(mostRecentNote)
+	}
+
+	observer.observe(document.body, { childList: true, subtree: true })
+}
+
+renderMostRecentNote()
+
+const observer = new MutationObserver(() => {
+	const mostRecentNoteElement = document.querySelector('.my-notes').firstChild
+	if (mostRecentNoteElement) {
+		mostRecentNoteElement.classList.add('active')
+		observer.disconnect()
+	}
+})
 
 const handleEdit = (note) => {
 	const editButton = document.querySelector('.edit-button')
