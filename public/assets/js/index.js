@@ -98,6 +98,7 @@ const getNotes = async () => {
 		const response = await fetch(url)
 		if (response.ok) {
 			const data = await response.json()
+			data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
 			renderNotes(data)
 		}
 	} catch (error) {
@@ -116,11 +117,12 @@ const renderNotes = (data) => {
 	myNotes.innerHTML = ''
 	let listGroupItems = ''
 	data.forEach((item) => {
-		const { title, noteText, id } = item
+		const { title, noteText, id, updatedAt } = item
 		return (listGroupItems += `<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
-																	<small data-name="date">3 days ago</small>																																  
+																																																	  
 																	<h5 class="mb-1 text-truncate fw-bolder" data-name="title">${title}</h5>																		
-    													    <p class="mb-1 text-truncate fs-6 fw-lighter" data-name="note-text">${noteText}</p>    													    
+    													    <p class="mb-1 text-truncate fs-6 fw-lighter" data-name="note-text">${noteText}</p>
+															<small data-name="date" class="badge text-bg-light float-end">${dateFns.formatDistanceToNowStrict(updatedAt, { addSuffix: true })}</small>    													    
   														 </div>`)
 	})
 	myNotes.innerHTML = listGroupItems
