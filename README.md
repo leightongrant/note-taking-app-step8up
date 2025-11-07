@@ -2,8 +2,7 @@
 
 A RESTful API for a note-taking application, built with Node.js, Express, and TypeScript. This backend service provides endpoints for creating, reading, updating, and deleting notes, with data persisted in a local JSON file.
 
-_Please replace this with a screenshot of your application's API being tested, for example, in Postman or Insomnia._
-![Preview](./public/assets/images/screenshot.png)
+![Preview](./public/assets/images/screenshot.webp)
 
 ## Live demo
 
