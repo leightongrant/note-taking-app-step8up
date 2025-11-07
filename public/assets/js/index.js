@@ -63,6 +63,7 @@ const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 renderNoteForm()
 
 const renderNote = (note) => {
+	if (!note) return
 	const noteView = document.querySelector('.note-view')
 	const { title, noteText } = note
 	const currentNote = `									 
@@ -118,6 +119,10 @@ newNote.addEventListener('click', () => {
 const renderNotes = (data) => {
 	myNotes.innerHTML = ''
 	let listGroupItems = ''
+	if (data.length === 0) {
+		myNotes.innerHTML = `<div class="text-center">No Notes</div>`
+		return
+	}
 	data.forEach((item) => {
 		const { title, noteText, id, updatedAt } = item
 		return (listGroupItems += `
@@ -181,6 +186,7 @@ const observer = new MutationObserver(() => {
 })
 
 const handleEdit = (note) => {
+	if (!note) return
 	const editButton = document.querySelector('.edit-button')
 	editButton.addEventListener('click', () => {
 		const { title, noteText, id } = note
