@@ -1,6 +1,7 @@
 const myNotes = document.querySelector('.my-notes')
 const newNote = document.querySelector('.new-note')
 const confirmModal = new bootstrap.Modal('#confirmModal', {})
+const searchInput = document.querySelector('#search')
 
 const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 	const noteView = document.querySelector('.note-view')
@@ -92,14 +93,15 @@ const renderNote = (note) => {
 	confirm.addEventListener('click', confirmDelete)
 }
 
-const getNotes = async () => {
+const getNotes = async (re = RegExp('')) => {
 	const url = 'http://localhost:5000/api/notes'
 	try {
 		const response = await fetch(url)
 		if (response.ok) {
 			const data = await response.json()
 			data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-			renderNotes(data)
+			const filteredData = data.filter((item) => re.test(item.title))
+			renderNotes(filteredData)
 		}
 	} catch (error) {
 		console.log(error)
@@ -222,4 +224,13 @@ const handleSave = async (note, crudOp, id) => {
 	}
 }
 
+const handleSearch = () => {
+	searchInput.addEventListener('keyup', (e) => {
+		const { value } = e.target
+		const re = RegExp(value)
+		getNotes(re)
+	})
+}
+
 getNotes()
+handleSearch()
