@@ -127,9 +127,9 @@ const renderNotes = (data) => {
 		const { title, noteText, id, updatedAt } = item
 		return (listGroupItems += `
 			<div class="list-group-item list-group-item-action rounded-3 note-item" aria-current="true" id="${id}">
-				<h5 class="mb-1 text-truncate fw-bolder" data-name="title">${title}</h5>
-				<p class="mb-1 text-truncate fs-6 fw-lighter" data-name="note-text">${noteText}</p>
-				<small data-name="date" class="badge text-bg-light float-end">${dateFns.formatDistanceToNowStrict(updatedAt, { addSuffix: true })}</small>
+				<h5 class="mb-1 text-truncate fw-bolder" data-name="title" style"width: 300px">${title}</h5>
+				<p class="mb-1 text-truncate fs-6 fw-lighter d-none d-md-block" data-name="note-text" style="width: 300px">${noteText}</p>
+				<small data-name="date" class="badge text-bg-light float-end d-none d-md-block">${dateFns.formatDistanceToNowStrict(updatedAt, { addSuffix: true })}</small>
 			</div>`.trim())
 	})
 	myNotes.innerHTML = listGroupItems
