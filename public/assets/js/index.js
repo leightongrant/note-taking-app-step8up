@@ -175,7 +175,7 @@ const renderMostRecentNote = async () => {
 	observer.observe(document.body, { childList: true, subtree: true })
 }
 
-renderMostRecentNote()
+//renderMostRecentNote()
 
 const observer = new MutationObserver(() => {
 	const mostRecentNoteElement = document.querySelector('.my-notes').firstChild
