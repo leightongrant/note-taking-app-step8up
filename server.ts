@@ -3,8 +3,8 @@ import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import cors from 'cors'
 import path from 'path'
-import { writeFile } from 'node:fs/promises'
-import { existsSync } from 'node:fs'
+//import { writeFile } from 'node:fs/promises'
+//import { existsSync } from 'node:fs'
 import { router } from './routes.ts'
 
 const __filename = fileURLToPath(import.meta.url)
