@@ -141,6 +141,3 @@ vite.config.ts.timestamp-*
 # Local Netlify folder
 .netlify
 .vercel
-
-# Notes
-notes.json
