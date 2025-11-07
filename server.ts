@@ -13,7 +13,7 @@ const __dirname = dirname(__filename)
 const app = express()
 const PORT = process.env.PORT || 3000
 
-if (!existsSync('notes.json')) await writeFile('notes.json', JSON.stringify([]))
+//if (!existsSync('notes.json')) await writeFile('notes.json', JSON.stringify([]))
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
