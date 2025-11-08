@@ -188,11 +188,29 @@ const renderMostRecentNote = async () => {
 		handleEdit(mostRecentNote)
 	}
 
-	requestAnimationFrame(() => {
-		requestAnimationFrame(() => {
-			const mostRecent = document.getElementById(mostRecentNote.id)
-			mostRecent.classList.add('active')
+	const observer = new MutationObserver((mutations) => {
+		mutations.forEach((mutation) => {
+			if (mutation.type === 'childList') {
+				const addedNodes = Array.from(mutation.addedNodes)
+				// Check if the added node is the element we're looking for
+				const mostRecent = document.getElementById(mostRecentNote.id)
+				if (mostRecent) {
+					mostRecent.classList.add('active')
+					observer.disconnect() // Stop observing once found
+				}
+			}
 		})
+	})
+
+	observer.observe(myNotes, { childList: true, subtree: false })
+
+	// Fallback timeout in case the observer fails (optional)
+	setTimeout(() => {
+		const mostRecent = document.getElementById(mostRecentNote.id)
+		if (mostRecent) {
+			mostRecent.classList.add('active')
+			observer.disconnect() // Stop observing if timeout kicks in
+		}
 	})
 }
 
