@@ -101,8 +101,8 @@ const handleDelete = async (note) => {
 	console.log(id)
 	try {
 		await fetch(`${url}/${id}`, { method: 'DELETE' })
-		getNotes()
-		renderMostRecentNote()
+		await getNotes()
+		await renderMostRecentNote()
 	} catch (error) {
 		console.log(error.message)
 	}
@@ -124,9 +124,9 @@ const getNotes = async (re = RegExp('')) => {
 }
 
 // New note event handler
-newNote.addEventListener('click', () => {
+newNote.addEventListener('click', async () => {
 	renderNoteForm()
-	getNotes()
+	await getNotes()
 	const noteTitleInput = document.querySelector('#note-title-input')
 	noteTitleInput.focus()
 })
@@ -191,12 +191,11 @@ const renderMostRecentNote = async () => {
 	const observer = new MutationObserver((mutations) => {
 		mutations.forEach((mutation) => {
 			if (mutation.type === 'childList') {
-				const addedNodes = Array.from(mutation.addedNodes)
-				// Check if the added node is the element we're looking for
-				const mostRecent = document.getElementById(mostRecentNote.id)
-				if (mostRecent) {
-					mostRecent.classList.add('active')
-					observer.disconnect() // Stop observing once found
+				// Find the added node that matches our note's ID
+				const targetNode = Array.from(mutation.addedNodes).find((node) => node.id === mostRecentNote.id)
+				if (targetNode) {
+					targetNode.classList.add('active')
+					observer.disconnect()
 				}
 			}
 		})
@@ -204,12 +203,11 @@ const renderMostRecentNote = async () => {
 
 	observer.observe(myNotes, { childList: true, subtree: false })
 
-	// Fallback timeout in case the observer fails (optional)
 	setTimeout(() => {
 		const mostRecent = document.getElementById(mostRecentNote.id)
 		if (mostRecent) {
 			mostRecent.classList.add('active')
-			observer.disconnect() // Stop observing if timeout kicks in
+			observer.disconnect()
 		}
 	})
 }
@@ -233,16 +231,16 @@ const handleSave = async (note, crudOp, id) => {
 	if (crudOp === 'post') {
 		try {
 			await fetch(url, { method: 'POST', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
-			getNotes()
-			renderMostRecentNote()
+			await getNotes()
+			await renderMostRecentNote()
 		} catch (error) {
 			console.log(error)
 		}
 	} else {
 		try {
 			await fetch(`${url}/${id}`, { method: 'PUT', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
-			getNotes()
-			renderMostRecentNote()
+			await getNotes()
+			await renderMostRecentNote()
 		} catch (error) {
 			console.log(error)
 		}
@@ -250,10 +248,10 @@ const handleSave = async (note, crudOp, id) => {
 }
 
 const handleSearch = () => {
-	searchInput.addEventListener('keyup', (e) => {
+	searchInput.addEventListener('keyup', async (e) => {
 		const { value } = e.target
-		const re = RegExp(value)
-		getNotes(re)
+		const re = RegExp(value, 'gi')
+		await getNotes(re)
 	})
 }
 
