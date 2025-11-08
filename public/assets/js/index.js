@@ -95,6 +95,20 @@ const renderNote = (note) => {
 	confirm.addEventListener('click', confirmDelete)
 }
 
+// Delete notes
+const handleDelete = async (note) => {
+	const { id } = note
+	console.log(id)
+	try {
+		await fetch(`${url}/${id}`, { method: 'DELETE' })
+		getNotes()
+		renderMostRecentNote()
+	} catch (error) {
+		console.log(error.message)
+	}
+}
+
+// Get all notes
 const getNotes = async (re = RegExp('')) => {
 	try {
 		const response = await fetch(url)
@@ -109,6 +123,7 @@ const getNotes = async (re = RegExp('')) => {
 	}
 }
 
+// New note event handler
 newNote.addEventListener('click', () => {
 	renderNoteForm()
 	getNotes()
@@ -116,6 +131,7 @@ newNote.addEventListener('click', () => {
 	noteTitleInput.focus()
 })
 
+// Render notes
 const renderNotes = (data) => {
 	myNotes.innerHTML = ''
 	let listGroupItems = ''
@@ -150,6 +166,7 @@ const renderNotes = (data) => {
 	})
 }
 
+// Get one note
 const getNote = async (id) => {
 	const response = await fetch(`${url}/${id}`)
 	if (response.ok) {
@@ -160,6 +177,7 @@ const getNote = async (id) => {
 	}
 }
 
+// Render most recent note
 const renderMostRecentNote = async () => {
 	const response = await fetch(url)
 	let mostRecentNote = null
@@ -170,19 +188,15 @@ const renderMostRecentNote = async () => {
 		handleEdit(mostRecentNote)
 	}
 
-	observer.observe(document.body, { childList: true, subtree: true })
+	setTimeout(() => {
+		const mostRecent = document.getElementById(mostRecentNote.id)
+		mostRecent.classList.add('active')
+	}, 10)
 }
 
 renderMostRecentNote()
 
-const observer = new MutationObserver(() => {
-	const mostRecentNoteElement = document.querySelector('.my-notes').firstChild
-	if (mostRecentNoteElement) {
-		mostRecentNoteElement.classList.add('active')
-		observer.disconnect()
-	}
-})
-
+// Edit notes
 const handleEdit = (note) => {
 	if (!note) return
 	const editButton = document.querySelector('.edit-button')
@@ -194,22 +208,13 @@ const handleEdit = (note) => {
 	})
 }
 
-const handleDelete = async (note) => {
-	const { id } = note
-	try {
-		await fetch(`${url}/${id}`, { method: 'DELETE' })
-		getNotes()
-		renderNoteForm()
-	} catch (error) {
-		console.log(error.message)
-	}
-}
-
+// Save notes
 const handleSave = async (note, crudOp, id) => {
 	if (crudOp === 'post') {
 		try {
 			await fetch(url, { method: 'POST', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
 			getNotes()
+			renderMostRecentNote()
 		} catch (error) {
 			console.log(error)
 		}
@@ -217,7 +222,7 @@ const handleSave = async (note, crudOp, id) => {
 		try {
 			await fetch(`${url}/${id}`, { method: 'PUT', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
 			getNotes()
-			renderNoteForm()
+			renderMostRecentNote()
 		} catch (error) {
 			console.log(error)
 		}

@@ -1,1 +1,79 @@
-[{"id":"note_001","title":"Welcome to NoteFlow","noteText":"Welcome to NoteFlow! This app is designed to help you capture ideas, organize thoughts, and stay productive. You can create notes, edit them, and revisit them anytime. Try adding tags, formatting your text, or pinning important notes to the top.","createdAt":"2025-11-07T13:00:00Z","updatedAt":"2025-11-07T13:00:00Z"},{"id":"note_004","title":"Meeting Notes – Nov 4","noteText":"Team sync focused on Q4 goals and product polish. Key points:\n- Finalize NoteFlow logo and branding assets\n- Improve onboarding flow with tooltips and sample notes\n- Test installability across Chrome, Safari, and mobile devices\n- Backend: add updatedAt field, refine validation schema\n- Next steps: assign tasks, set deadlines, prep for beta launch","createdAt":"2025-11-04T16:15:00Z","updatedAt":"2025-11-04T17:00:00Z"},{"id":"note_005","title":"Color Palette Exploration","noteText":"Exploring visual identity for NoteFlow:\n- Primary color: #0a9a93 (teal)\n- Accent: #f4f4f4 (light gray)\n- Typography: Inter, 16px base, 600 weight for headings\n- UI mood: Calm, modern, focused\n- Consider gradients for hero section and subtle shadows for cards\n- Test accessibility contrast ratios and dark mode compatibility","createdAt":"2025-11-03T09:20:00Z","updatedAt":"2025-11-03T10:05:00Z"},{"id":"note_007","title":"NoteFlow Feature Wishlist","noteText":"Here’s a list of features I’d love to add:\n- Tagging system with autocomplete\n- Archive and restore notes\n- Markdown support with preview\n- Search by content and title\n- Pin notes to top\n- Dark mode toggle\n- Sync across devices\n- Offline access with local storage fallback","createdAt":"2025-11-01T14:30:00Z","updatedAt":"2025-11-01T15:05:00Z"},{"id":"note_008","title":"UI Feedback from Beta Testers","noteText":"Collected feedback from 5 testers:\n- Everyone liked the clean layout and typography\n- Some confusion around the save button — consider auto-save or clearer icon\n- One user suggested collapsible sections for long notes\n- Mobile spacing needs refinement, especially around the header\n- Overall: strong first impression, but polish needed for interactions","createdAt":"2025-10-31T17:45:00Z","updatedAt":"2025-10-31T18:20:00Z"},{"id":"note_009","title":"Code Snippet – Slug Generator","noteText":"Here’s a quick utility to generate slugs from note titles:\n```ts\nfunction generateSlug(title: string): string {\n  return title.toLowerCase()\n    .trim()\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace(/^-+|-+$/g, '');\n}\n```\nUseful for creating clean URLs or IDs for notes.","createdAt":"2025-10-30T11:00:00Z","updatedAt":"2025-10-30T11:10:00Z"},{"id":"note_010","title":"Branding Moodboard Notes","noteText":"Exploring visual direction for NoteFlow:\n- Keywords: clarity, calm, focus, flow\n- Visuals: soft gradients, rounded corners, minimal icons\n- Fonts: Inter, Nunito, or Poppins — test readability\n- Logo: consider a pencil + paper motif or abstract flow lines\n- Color palette: teal (#0a9a93), soft gray, accent lilac\n- Goal: create a brand that feels intuitive and trustworthy","createdAt":"2025-10-29T08:40:00Z","updatedAt":"2025-10-29T09:15:00Z"},{"id":"note_006","title":"Daily Reflection – Nov 2","noteText":"Today felt productive. I managed to finalize the layout for the dashboard and resolved a tricky flexbox bug that was misaligning items on mobile. Still need to test responsiveness across breakpoints and clean up unused styles. Also, I want to revisit the color contrast on the sidebar, it’s a bit too muted.","createdAt":"2025-11-02T20:10:00Z","updatedAt":"2025-11-07T16:35:13.175Z"},{"id":"note_002","title":"Grocery List","noteText":"Here's what I need for the week:\n- Milk (semi-skimmed)\n- Eggs (free-range, dozen)\n- Bread (whole grain)\n- Spinach (fresh, bagged)\n- Coffee (dark roast, ground)\n- Bananas\n- Greek yogurt\n- Almonds\n- Chicken breasts\n- Olive oil\n- Mushrooms","createdAt":"2025-11-06T18:45:00Z","updatedAt":"2025-11-07T16:45:54.938Z"},{"id":"note_003","title":"Project Ideas","noteText":"Brainstorming some app ideas:\n1. Markdown editor with live preview and export to PDF\n2. Habit tracker with streaks, reminders, and analytics\n3. Portfolio builder with drag-and-drop layout and custom themes\n4. Collaborative writing tool with version history and comments\n5. NoteFlow extensions: tagging, search filters.\n6. Test","createdAt":"2025-11-05T10:30:00Z","updatedAt":"2025-11-08T06:27:31.454Z"},{"id":"SUT5pudjkOnQmzkCT9MjR","title":"new note title 4","noteText":"new note text 4","createdAt":"2025-11-08T06:33:50.569Z","updatedAt":"2025-11-08T06:33:50.569Z"}]
+[
+	{
+		"id": "note_001",
+		"title": "Welcome to NoteFlow",
+		"noteText": "Welcome to NoteFlow! This app is designed to help you capture ideas, organize thoughts, and stay productive. You can create notes, edit them, and revisit them anytime. Try adding tags, formatting your text, or pinning important notes to the top.",
+		"createdAt": "2025-11-07T13:00:00Z",
+		"updatedAt": "2025-11-07T13:00:00Z"
+	},
+	{
+		"id": "note_004",
+		"title": "Meeting Notes – Nov 4",
+		"noteText": "Team sync focused on Q4 goals and product polish. Key points:\n- Finalize NoteFlow logo and branding assets\n- Improve onboarding flow with tooltips and sample notes\n- Test installability across Chrome, Safari, and mobile devices\n- Backend: add updatedAt field, refine validation schema\n- Next steps: assign tasks, set deadlines, prep for beta launch",
+		"createdAt": "2025-11-04T16:15:00Z",
+		"updatedAt": "2025-11-04T17:00:00Z"
+	},
+	{
+		"id": "note_005",
+		"title": "Color Palette Exploration",
+		"noteText": "Exploring visual identity for NoteFlow:\n- Primary color: #0a9a93 (teal)\n- Accent: #f4f4f4 (light gray)\n- Typography: Inter, 16px base, 600 weight for headings\n- UI mood: Calm, modern, focused\n- Consider gradients for hero section and subtle shadows for cards\n- Test accessibility contrast ratios and dark mode compatibility",
+		"createdAt": "2025-11-03T09:20:00Z",
+		"updatedAt": "2025-11-03T10:05:00Z"
+	},
+	{
+		"id": "note_007",
+		"title": "NoteFlow Feature Wishlist",
+		"noteText": "Here’s a list of features I’d love to add:\n- Tagging system with autocomplete\n- Archive and restore notes\n- Markdown support with preview\n- Search by content and title\n- Pin notes to top\n- Dark mode toggle\n- Sync across devices\n- Offline access with local storage fallback",
+		"createdAt": "2025-11-01T14:30:00Z",
+		"updatedAt": "2025-11-01T15:05:00Z"
+	},
+	{
+		"id": "note_008",
+		"title": "UI Feedback from Beta Testers",
+		"noteText": "Collected feedback from 5 testers:\n- Everyone liked the clean layout and typography\n- Some confusion around the save button — consider auto-save or clearer icon\n- One user suggested collapsible sections for long notes\n- Mobile spacing needs refinement, especially around the header\n- Overall: strong first impression, but polish needed for interactions",
+		"createdAt": "2025-10-31T17:45:00Z",
+		"updatedAt": "2025-10-31T18:20:00Z"
+	},
+	{
+		"id": "note_009",
+		"title": "Code Snippet – Slug Generator",
+		"noteText": "Here’s a quick utility to generate slugs from note titles:\n```ts\nfunction generateSlug(title: string): string {\n  return title.toLowerCase()\n    .trim()\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace(/^-+|-+$/g, '');\n}\n```\nUseful for creating clean URLs or IDs for notes.",
+		"createdAt": "2025-10-30T11:00:00Z",
+		"updatedAt": "2025-10-30T11:10:00Z"
+	},
+	{
+		"id": "note_010",
+		"title": "Branding Moodboard Notes",
+		"noteText": "Exploring visual direction for NoteFlow:\n- Keywords: clarity, calm, focus, flow\n- Visuals: soft gradients, rounded corners, minimal icons\n- Fonts: Inter, Nunito, or Poppins — test readability\n- Logo: consider a pencil + paper motif or abstract flow lines\n- Color palette: teal (#0a9a93), soft gray, accent lilac\n- Goal: create a brand that feels intuitive and trustworthy",
+		"createdAt": "2025-10-29T08:40:00Z",
+		"updatedAt": "2025-10-29T09:15:00Z"
+	},
+	{
+		"id": "note_006",
+		"title": "Daily Reflection – Nov 2",
+		"noteText": "Today felt productive. I managed to finalize the layout for the dashboard and resolved a tricky flexbox bug that was misaligning items on mobile. Still need to test responsiveness across breakpoints and clean up unused styles. Also, I want to revisit the color contrast on the sidebar, it’s a bit too muted.",
+		"createdAt": "2025-11-02T20:10:00Z",
+		"updatedAt": "2025-11-07T16:35:13.175Z"
+	},
+	{
+		"id": "note_002",
+		"title": "Grocery List",
+		"noteText": "Here's what I need for the week:\n- Milk (semi-skimmed)\n- Eggs (free-range, dozen)\n- Bread (whole grain)\n- Spinach (fresh, bagged)\n- Coffee (dark roast, ground)\n- Bananas\n- Greek yogurt\n- Almonds\n- Chicken breasts\n- Olive oil\n- Mushrooms",
+		"createdAt": "2025-11-06T18:45:00Z",
+		"updatedAt": "2025-11-07T16:45:54.938Z"
+	},
+	{
+		"id": "note_003",
+		"title": "Project Ideas",
+		"noteText": "Brainstorming some app ideas:\n1. Markdown editor with live preview and export to PDF\n2. Habit tracker with streaks, reminders, and analytics\n3. Portfolio builder with drag-and-drop layout and custom themes\n4. Collaborative writing tool with version history and comments\n5. NoteFlow extensions: tagging, search filters.\n6. Test",
+		"createdAt": "2025-11-05T10:30:00Z",
+		"updatedAt": "2025-11-08T06:27:31.454Z"
+	},
+	{
+		"id": "SUT5pudjkOnQmzkCT9MjR",
+		"title": "new note title 4",
+		"noteText": "new note text 4",
+		"createdAt": "2025-11-08T06:33:50.569Z",
+		"updatedAt": "2025-11-08T06:33:50.569Z"
+	}
+]
