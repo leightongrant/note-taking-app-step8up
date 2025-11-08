@@ -4,6 +4,8 @@ const confirmModal = new bootstrap.Modal('#confirmModal', {})
 const searchInput = document.querySelector('#search')
 const url = '/api/notes'
 
+let selectedNote = null
+
 const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 	const noteView = document.querySelector('.note-view')
 	noteView.innerHTML = `
@@ -81,19 +83,19 @@ const renderNote = (note) => {
 	noteView.innerHTML = currentNote
 
 	const deleteButton = document.querySelector('.delete-button')
+
 	deleteButton.addEventListener('click', () => {
+		selectedNote = note
 		confirmModal.show()
 	})
-
-	const confirm = document.querySelector('.confirm')
-
-	const confirmDelete = () => {
-		handleDelete(note)
-		confirmModal.hide()
-		confirm.removeEventListener('click', confirmDelete)
-	}
-	confirm.addEventListener('click', confirmDelete)
 }
+
+const confirm = document.getElementById('confirm')
+const confirmDelete = () => {
+	handleDelete(selectedNote)
+	confirmModal.hide()
+}
+confirm.addEventListener('click', confirmDelete)
 
 // Delete notes
 const handleDelete = async (note) => {

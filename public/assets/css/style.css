@@ -167,7 +167,7 @@ button.new-note:hover {
 	.page-inner {
 		max-width: 1200px;
 		margin: auto;
-		min-height: 75dvh;
+		min-height: 90dvh;
 	}
 	.my-notes {
 		max-height: 700px;
