@@ -2,6 +2,7 @@ const myNotes = document.querySelector('.my-notes')
 const newNote = document.querySelector('.new-note')
 const confirmModal = new bootstrap.Modal('#confirmModal', {})
 const searchInput = document.querySelector('#search')
+const url = '/api/notes'
 
 const renderNoteForm = (title = '', noteText = '', crudOp = 'post', id) => {
 	const noteView = document.querySelector('.note-view')
@@ -95,7 +96,6 @@ const renderNote = (note) => {
 }
 
 const getNotes = async (re = RegExp('')) => {
-	const url = 'http://localhost:5000/api/notes'
 	try {
 		const response = await fetch(url)
 		if (response.ok) {
@@ -151,8 +151,7 @@ const renderNotes = (data) => {
 }
 
 const getNote = async (id) => {
-	const url = `http://localhost:5000/api/notes/${id}`
-	const response = await fetch(url)
+	const response = await fetch(`${url}/${id}`)
 	if (response.ok) {
 		const note = await response.json()
 
@@ -162,7 +161,6 @@ const getNote = async (id) => {
 }
 
 const renderMostRecentNote = async () => {
-	const url = `http://localhost:5000/api/notes/`
 	const response = await fetch(url)
 	let mostRecentNote = null
 	if (response.ok) {
@@ -175,7 +173,7 @@ const renderMostRecentNote = async () => {
 	observer.observe(document.body, { childList: true, subtree: true })
 }
 
-//renderMostRecentNote()
+renderMostRecentNote()
 
 const observer = new MutationObserver(() => {
 	const mostRecentNoteElement = document.querySelector('.my-notes').firstChild
@@ -198,10 +196,8 @@ const handleEdit = (note) => {
 
 const handleDelete = async (note) => {
 	const { id } = note
-	const url = `http://localhost:5000/api/notes/${id}`
-
 	try {
-		await fetch(url, { method: 'DELETE' })
+		await fetch(`${url}/${id}`, { method: 'DELETE' })
 		getNotes()
 		renderNoteForm()
 	} catch (error) {
@@ -211,7 +207,6 @@ const handleDelete = async (note) => {
 
 const handleSave = async (note, crudOp, id) => {
 	if (crudOp === 'post') {
-		const url = `http://localhost:5000/api/notes`
 		try {
 			await fetch(url, { method: 'POST', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
 			getNotes()
@@ -219,9 +214,8 @@ const handleSave = async (note, crudOp, id) => {
 			console.log(error)
 		}
 	} else {
-		const url = `http://localhost:5000/api/notes/${id}`
 		try {
-			await fetch(url, { method: 'PUT', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
+			await fetch(`${url}/${id}`, { method: 'PUT', body: JSON.stringify(note), headers: { 'Content-Type': 'application/json' } })
 			getNotes()
 			renderNoteForm()
 		} catch (error) {
