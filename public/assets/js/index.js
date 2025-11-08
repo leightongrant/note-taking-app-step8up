@@ -191,7 +191,7 @@ const renderMostRecentNote = async () => {
 	setTimeout(() => {
 		const mostRecent = document.getElementById(mostRecentNote.id)
 		mostRecent.classList.add('active')
-	}, 10)
+	}, 150)
 }
 
 renderMostRecentNote()
