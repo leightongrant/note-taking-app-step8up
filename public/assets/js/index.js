@@ -188,10 +188,12 @@ const renderMostRecentNote = async () => {
 		handleEdit(mostRecentNote)
 	}
 
-	setTimeout(() => {
-		const mostRecent = document.getElementById(mostRecentNote.id)
-		mostRecent.classList.add('active')
-	}, 500)
+	requestAnimationFrame(() => {
+		requestAnimationFrame(() => {
+			const mostRecent = document.getElementById(mostRecentNote.id)
+			mostRecent.classList.add('active')
+		})
+	})
 }
 
 renderMostRecentNote()
