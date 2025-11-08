@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "NODE_ENV=development node --env-file=.env --watch-path=./public --watch-path=./ --watch server.ts",
+		"dev": "NODE_ENV=development node --env-file=.env.development.local --watch-path=./public --watch-path=./ --watch server.ts",
 		"start": "NODE_ENV=production node server.ts"
 	},
 	"repository": {
@@ -22,10 +22,12 @@
 	"dependencies": {
 		"@types/cors": "^2.8.19",
 		"@types/nanoid": "^2.1.0",
+		"@types/redis": "^4.0.10",
 		"cors": "^2.8.5",
 		"express": "^5.1.0",
 		"joi": "^18.0.1",
-		"nanoid": "^5.1.6"
+		"nanoid": "^5.1.6",
+		"redis": "^5.9.0"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.5",

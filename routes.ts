@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import type { Request, Response } from 'express'
-import { readFile, writeFile } from 'node:fs/promises'
 import { nanoid } from 'nanoid'
 import Joi from 'joi'
+import { redis } from './connection.ts'
 
 const schema = Joi.object({
 	title: Joi.string().required().min(3).max(100),
@@ -27,18 +27,34 @@ export const router = Router()
 
 // Get all notes
 router.get('/notes', async (req: Request, res: Response) => {
-	const notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
-	const notes = JSON.parse(notesData) as NotesData[]
-	res.status(200).json(notes)
+	try {
+		const notesData = await redis.get('notesDb')
+		if (notesData) {
+			const notes = JSON.parse(notesData) as NotesData[]
+			res.status(200).json(notes)
+			return
+		}
+		throw new Error('Notes not found')
+	} catch (error) {
+		res.status(404).json(error)
+	}
 })
 
 // Get one note
 router.get('/notes/:id', async (req: Request, res: Response) => {
 	const { id } = req.params
-	const notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
-	const notes = JSON.parse(notesData) as NotesData[]
-	const note = notes.find((item: NotesData) => item.id === id)
-	res.status(200).json(note)
+	try {
+		const notesData = await redis.get('notesDb')
+		if (notesData) {
+			const notes = JSON.parse(notesData) as NotesData[]
+			const note = notes.find((item: NotesData) => item.id === id)
+			res.status(200).json(note)
+			return
+		}
+		throw new Error('Note not found')
+	} catch (error) {
+		res.status(404).json(error)
+	}
 })
 
 // Create note
@@ -62,10 +78,11 @@ router.post('/notes', async (req: Request, res: Response) => {
 
 	// Get note data. If no data create new array with note
 	try {
-		const notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
+		const notesData = await redis.get('notesDb')
 		if (!notesData) {
-			await writeFile('./notes.json', JSON.stringify([newNote]))
-			res.status(201).json({ message: 'Success, new note created' })
+			// await writeFile('./notes.json', JSON.stringify([newNote]))
+			await redis.set('notesDb', JSON.stringify([newNote]))
+			res.status(201).json({ message: 'Success, new note created', note: newNote })
 			return
 		}
 
@@ -85,9 +102,10 @@ router.post('/notes', async (req: Request, res: Response) => {
 		// Add new note to array
 		notes.push(newNote)
 		// Save new notes
-		await writeFile('./notes.json', JSON.stringify(notes))
+		await redis.set('notesDb', JSON.stringify(notes))
 
 		res.status(201).json({ message: 'Success, new note created' })
+		return
 	} catch (error) {
 		res.status(400).json(error)
 	}
@@ -114,18 +132,21 @@ router.put('/notes/:id', async (req: Request, res: Response) => {
 	const { error, value } = schema.validate(body)
 	if (error) {
 		res.status(400).json(error.message)
+		return
 	}
 	// Create update data object
 	const updateData: NotesUpdateData = { ...value, updatedAt: new Date() }
 
 	try {
-		const notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
+		const notesData = await redis.get('notesDb')
+
 		const newNote: NotesData = { id: nanoid(), ...updateData, createdAt: new Date() }
 		if (!notesData) {
-			await writeFile('./notes.json', JSON.stringify([newNote]))
-			res.status(201).json({ message: 'Success, new note created' })
+			await redis.set('notesDb', JSON.stringify([newNote]))
+			res.status(201).json({ message: 'Success, new note created', note: newNote })
 			return
 		}
+
 		let notes = JSON.parse(notesData) as NotesData[]
 
 		// Return not found if note not found
@@ -144,8 +165,9 @@ router.put('/notes/:id', async (req: Request, res: Response) => {
 		// Add updated note
 		notes.push(currentNote)
 
-		await writeFile('./notes.json', JSON.stringify(notes))
+		await redis.set('notesDb', JSON.stringify(notes))
 		res.status(200).json(currentNote)
+		return
 	} catch (error) {
 		res.status(400).json(error)
 	}
@@ -155,7 +177,7 @@ router.put('/notes/:id', async (req: Request, res: Response) => {
 router.delete('/notes/:id', async (req: Request, res: Response) => {
 	const { id } = req.params
 	try {
-		let notesData = await readFile(new URL('./notes.json', import.meta.url), 'utf-8')
+		let notesData = await redis.get('notesDb')
 		if (!notesData) {
 			res.status(404).json({ message: 'No data found' })
 			return
@@ -165,8 +187,9 @@ router.delete('/notes/:id', async (req: Request, res: Response) => {
 
 		notes = notes.filter((note) => note.id !== id)
 
-		await writeFile('./notes.json', JSON.stringify(notes))
+		await redis.set('notesDb', JSON.stringify(notes))
 		res.status(200).json({ message: `Note with id(${id}) deleted` })
+		return
 	} catch (error) {
 		res.status(400).json(error)
 	}

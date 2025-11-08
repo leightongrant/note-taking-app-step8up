@@ -3,9 +3,9 @@ import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import cors from 'cors'
 import path from 'path'
-//import { writeFile } from 'node:fs/promises'
-//import { existsSync } from 'node:fs'
+import { redis } from './connection.ts'
 import { router } from './routes.ts'
+import type { Request, Response } from 'express'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -13,7 +13,16 @@ const __dirname = dirname(__filename)
 const app = express()
 const PORT = process.env.PORT || 3000
 
-//if (!existsSync('notes.json')) await writeFile('notes.json', JSON.stringify([]))
+if (redis.isReady) {
+	if (!(await redis.get('notesDb'))) {
+		try {
+			const result = await redis.set('notesDb', JSON.stringify([]))
+			console.log(result)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
