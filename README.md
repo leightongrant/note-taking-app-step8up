@@ -1,8 +1,10 @@
 # Note Taking API — Leighton Grant
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
 A RESTful API for a note-taking application, built with Node.js, Express, and TypeScript. This backend service provides endpoints for creating, reading, updating, and deleting notes, with data persisted in a local JSON file.
 
-![Preview](./public/assets/images/screenshot.webp)
+![Preview](https://raw.githubusercontent.com/leightongrant/note-taking-app-step8up/main/public/assets/images/screenshot.webp)
 
 ## Live demo
 
@@ -27,15 +29,14 @@ This project is a backend API that serves as the foundation for a note-taking ap
 
 ## Tech stack
 
--   <img src="https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white&style=for-the-badge" alt="Node.js" />
--   <img src="https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white&style=for-the-badge" alt="Express.js" />
--   <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=for-the-badge" alt="TypeScript" />
--   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License: MIT" />
+[![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white&style=for-the-badge)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white&style=for-the-badge)](https://expressjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=for-the-badge)](https://www.typescriptlang.org/)
 
--   Node.js
--   Express.js
--   TypeScript
--   Joi (for validation)
+Node.js
+Express.js
+TypeScript
+Joi (for validation)
 
 ## API Endpoints
 
