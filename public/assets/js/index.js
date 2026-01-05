@@ -95,7 +95,9 @@ const confirmDelete = () => {
 	handleDelete(selectedNote)
 	confirmModal.hide()
 }
-confirm.addEventListener('click', confirmDelete)
+if (confirm) {
+	confirm.addEventListener('click', confirmDelete)
+}
 
 // Delete notes
 const handleDelete = async (note) => {
@@ -154,11 +156,11 @@ const renderNotes = (data) => {
 	const noteItems = document.querySelectorAll('.note-item')
 	noteItems.forEach((item) => {
 		item.addEventListener('click', (e) => {
-			let target = e.target
+			let { target } = e
 			if (e.target.dataset.name === 'title' || e.target.dataset.name === 'date' || e.target.dataset.name === 'note-text') {
 				target = e.target.parentElement
 			}
-			const childNodes = target.parentNode.childNodes
+			const { childNodes } = target.parentNode
 			childNodes.forEach((node) => {
 				node.classList.remove('active')
 			})
