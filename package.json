@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "pnpm --prefix frontend dev",
+    "dev:frontend": "pnpm -C frontend dev",
     "dev:backend": "node --env-file=.env.development.local --watch ./backend/server.ts --watch ./backend/connection.ts --watch ./backend/routes.ts",
-    "build:frontend": "pnpm --prefix frontend build",
+    "build:frontend": "pnpm -C frontend build",
+    "install:all": "pnpm -C frontend install && pnpm -C backend install",
     "start": "node ./backend/server.ts"
   },
   "repository": {
