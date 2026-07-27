@@ -1,0 +1,10 @@
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  build: {
+    outDir: '../public',
+    emptyOutDir: true,
+    copyPublicDir: false,
+  },
+  publicDir: false,
+})
