@@ -1,176 +1,191 @@
 :root {
-	--primary-color: #0a9a93;
-	--primary-color-hover: #0a9a93cc;
-	--secondary-color: #f2ae3d;
-	--background-color: #f0f7f9;
-	--delete-color: #e7515d;
-	--delete-color-hover: #e7515dcc;
-	--dark-text: #525252;
-	--light-text: #dee2e6;
-	--icon-color: #525252;
-	--border-color: #dee2e6;
+  --primary-color: #0a9a93;
+  --primary-color-hover: #0a9a93cc;
+  --secondary-color: #f2ae3d;
+  --background-color: #f0f7f9;
+  --delete-color: #e7515d;
+  --delete-color-hover: #e7515dcc;
+  --dark-text: #525252;
+  --light-text: #dee2e6;
+  --icon-color: #525252;
+  --border-color: #dee2e6;
 }
 body {
-	font-family: Quicksand, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-		sans-serif;
-	color: var(--dark-text);
-	font-weight: 400;
-	background-color: var(--background-color);
+  font-family:
+    Quicksand,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  color: var(--dark-text);
+  font-weight: 400;
+  background-color: var(--background-color);
 }
 
 input {
-	display: block;
+  display: block;
 }
 
 nav {
-	display: grid;
+  display: grid;
 
-	align-items: center;
-	gap: 1rem;
+  align-items: center;
+  gap: 1rem;
 }
 
 button {
-	height: fit-content;
+  height: fit-content;
 }
 
 button.new-note,
 button.new-note:active {
-	background-color: var(--primary-color) !important;
-	border-color: transparent;
-	outline: none !important;
+  background-color: var(--primary-color) !important;
+  border-color: transparent;
+  outline: none !important;
 }
 
 button.new-note:hover {
-	background-color: var(--primary-color-hover) !important;
-	border-color: transparent;
+  background-color: var(--primary-color-hover) !important;
+  border-color: transparent;
 }
 .btn-delete {
-	background-color: var(--delete-color);
+  background-color: var(--delete-color);
 }
 .btn-delete:hover {
-	background-color: var(--delete-color-hover);
+  background-color: var(--delete-color-hover);
 }
 
 .new-note-header > input {
-	width: auto !important;
+  width: auto !important;
 }
 .list-group-item.active {
-	background-color: var(--primary-color);
-	border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .page-inner {
-	display: grid;
-	min-height: 100dvh;
-	grid-template-rows: auto 1fr;
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr;
 }
 .notes-section {
-	height: 100%;
+  height: 100%;
 }
 
 .note-item:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .my-notes {
-	display: flex;
-	max-height: 300px;
-	overflow-y: auto;
+  display: flex;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .new-note-wrapper {
-	display: grid;
-	grid-template-rows: auto 1fr;
-	gap: 1rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
 }
 
 .new-note-header {
-	display: grid;
-	grid-template-columns: 1fr auto auto;
-	gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding-inline: 1rem;
 }
 
 #inputGroup-sizing-md {
-	background-color: transparent;
+  background-color: transparent;
 }
 
 #search:focus {
-	box-shadow: none;
-	border-color: var(--border-color);
+  box-shadow: none;
+  border-color: var(--border-color);
 }
 #note-title-input,
 #note-text {
-	border: none;
-	border-color: transparent;
-	background-color: transparent;
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
 }
 #note-title-input:focus,
 #note-text:focus {
-	border-color: transparent;
-	box-shadow: none;
-	background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  background-color: transparent;
 }
 #note-text {
-	height: 100%;
+  height: 100%;
 }
 #note-text::placeholder {
-	color: var(--light-text);
+  color: var(--light-text);
 }
 
 #note-title-input::placeholder {
-	color: var(--light-text);
+  color: var(--light-text);
 }
 
 .notes-wrapper {
-	display: grid;
-	grid-template-rows: auto 1fr;
-	height: 100%;
-	overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
 }
 
 .notes-list {
-	border-bottom: 1px solid var(--border-color);
-	height: fit-content;
+  border-bottom: 1px solid var(--border-color);
+  height: fit-content;
 }
 
 /* Media Queries */
 @media (min-width: 576px) {
-	nav {
-		grid: auto-flow / auto 1fr auto;
-	}
+  nav {
+    grid: auto-flow / auto 1fr auto;
+  }
 }
 
 @media (min-width: 768px) {
-	.notes-wrapper {
-		grid: auto-flow / 1fr 2fr;
-		height: 100%;
-		overflow: hidden;
-	}
-	.notes-list {
-		border-right: 1px solid var(--border-color);
-		border-bottom: none;
-		height: 100%;
-	}
-	.my-notes {
-		grid: auto-flow / 1fr;
-		max-height: 100%;
-		overflow-y: auto;
-	}
+  .notes-wrapper {
+    grid: auto-flow / 1fr 2fr;
+    height: 100%;
+    overflow: hidden;
+  }
+  .notes-list {
+    border-right: 1px solid var(--border-color);
+    border-bottom: none;
+    height: 100%;
+  }
+  .my-notes {
+    grid: auto-flow / 1fr;
+    max-height: 100%;
+    overflow-y: auto;
+  }
 }
 
 @media (min-width: 1200px) {
-	.page-wrapper {
-		display: grid;
-		align-items: center;
-		min-height: 100dvh;
-	}
-	.page-inner {
-		max-width: 1200px;
-		margin: auto;
-		min-height: 90dvh;
-	}
-	.my-notes {
-		max-height: 700px;
-		overflow-y: auto;
-	}
+  .page-wrapper {
+    display: grid;
+    align-items: center;
+    min-height: 100dvh;
+  }
+  .page-inner {
+    max-width: 1200px;
+    margin: auto;
+    min-height: 90dvh;
+    min-width: 80%;
+  }
+  .my-notes {
+    max-height: 700px;
+    overflow-y: auto;
+  }
 }

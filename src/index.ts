@@ -3,8 +3,8 @@ import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import cors from 'cors'
 import path from 'path'
-import { redis } from './connection.ts'
-import { router } from './routes.ts'
+import { redis } from '../connection.ts'
+import { router } from '../routes.ts'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -26,10 +26,8 @@ if (redis.isReady) {
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../public')))
 app.use(express.json())
-app.use('/api/', router)
+app.use('/', router)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
-
-export default app

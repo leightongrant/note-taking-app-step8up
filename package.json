@@ -1,35 +1,31 @@
 {
   "name": "note-taking-app-step8up",
   "version": "1.0.0",
-  "description": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)",
-  "main": "index.js",
+  "description": "Note app backend",
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev": "concurrently \"pnpm dev:frontend\" \"pnpm dev:backend\"",
     "dev:frontend": "pnpm -C frontend dev",
-    "dev:backend": "node --env-file=.env.development.local --watch ./backend/server.ts --watch ./backend/connection.ts --watch ./backend/routes.ts",
-    "build:frontend": "pnpm -C frontend build",
-    "install:all": "pnpm -C frontend install && pnpm -C backend install",
-    "start": "node ./backend/server.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leightongrant/note-taking-app-step8up.git"
+    "dev:backend": "node --watch ./src/index.ts --watch connection.ts --watch routes.ts",
+    "build:frontend": "pnpm -C frontend build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/leightongrant/note-taking-app-step8up/issues"
-  },
-  "homepage": "https://github.com/leightongrant/note-taking-app-step8up#readme",
+  "type": "module",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "@types/node": "^26.1.1",
-    "concurrently": "^10.0.4"
+    "concurrently": "^10.0.4",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^2.18.1",
-    "typescript": "^7.0.2"
+    "@dotenvx/dotenvx": "^2.19.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "joi": "^18.2.3",
+    "nanoid": "^6.0.0",
+    "redis": "^6.1.0"
   },
   "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }
